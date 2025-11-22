@@ -24,12 +24,12 @@ def match():
     usage = data.get("usage", "")
     exterior_color = data.get("exterior_color", "")
 
-    matches = INVENTORY
+    matches = ["test"]
 
     # SIMPLE MATCHING LOGIC FOR NOW
-    for v in INVENTORY:
-        if vehicle_type in v["body_style"].lower():
-            matches.append(v)
+    #for v in INVENTORY:
+        #if vehicle_type in v["body_style"].lower():
+            #matches.append(v)
 
     # Return top 3 for now
-    return jsonify({"matches": matches[:3]})
+    return jsonify({"matches": matches})
