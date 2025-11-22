@@ -24,7 +24,7 @@ def match():
     usage = data.get("usage", "")
     exterior_color = data.get("exterior_color", "")
 
-    matches = []
+    matches = INVENTORY
 
     # SIMPLE MATCHING LOGIC FOR NOW
     for v in INVENTORY:
