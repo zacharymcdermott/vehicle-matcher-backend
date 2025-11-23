@@ -38,7 +38,7 @@ async function testLoadInventory() {
   const raw = fs.readFileSync("./inventory.json", "utf-8");
   const json = JSON.parse(raw);
 
-  return json.inventory;
+  return raw;
 }
 
 // Basic scoring logic
