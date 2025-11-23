@@ -33,6 +33,14 @@ async function loadInventory() {
   });
 }
 
+import fs from "fs";
+async function testLoadInventory() {
+  const raw = fs.readFileSync("./inventory.json", "utf-8");
+  const json = JSON.parse(raw);
+
+  return json.inventory;
+}
+
 // Basic scoring logic
 function scoreVehicle(vehicle, lead) {
   let score = 0;
@@ -89,7 +97,8 @@ function scoreVehicle(vehicle, lead) {
 app.post("/match", async (req, res) => {
   try {
     const lead = req.body.lead;
-    const inventory = await loadInventory();
+    //const inventory = await loadInventory();
+    const inventory = await testLoadInventory();
 
     const scored = inventory//inventory
       //.map(v => ({ v, s: scoreVehicle(v, lead) }))
