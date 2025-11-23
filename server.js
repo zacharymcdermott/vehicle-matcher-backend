@@ -56,7 +56,7 @@ function filterVehicles(inventory, lead) {
   const band = priceBands[lead.price_range] || priceBands["No preference"];
 
   const filtered = inventory.filter(vehicle => {
-    // 1) Body type filter (check both body and class contains)
+    
     if (lead.body_type && lead.body_type !== "Not sure yet") {
       const leadBodyLower = lead.body_type.toLowerCase();
       const bodyMatch = vehicle.body && vehicle.body.toLowerCase().includes(leadBodyLower);
@@ -65,7 +65,7 @@ function filterVehicles(inventory, lead) {
       if (!bodyMatch && !classMatch) {
         return false;
       }
-    }
+    }  
 
     /* TODO: Uncomment when new or preowned is in the json data
     // 2) New or Used
@@ -81,9 +81,10 @@ function filterVehicles(inventory, lead) {
     }
 
     // 4) Color filter (contains)
-    if (lead.exterior_color && lead.exterior_color !== "Doesn’t matter" &&
-        vehicle.color && !vehicle.color.toLowerCase().includes(lead.exterior_color.toLowerCase())) {
-      return false;
+    if (lead.exterior_color && lead.exterior_color !== "Doesn’t matter") {
+      if (!vehicle.color || !vehicle.color.toLowerCase().includes(lead.exterior_color.toLowerCase())) {
+        return false;
+      }
     }
 
     /* TODO: Add the following filters when the inventory.json has that as part of the structure
