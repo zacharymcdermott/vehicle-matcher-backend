@@ -100,14 +100,14 @@ app.post("/match", async (req, res) => {
   try {
     const lead = req.body.lead;
     const inventory = await loadInventory();
-
+    /*
     const scored = inventory
       .map(v => ({ v, s: scoreVehicle(v, lead) }))
       .filter(x => x.s >= 0)
       .sort((a, b) => b.s - a.s)
       .slice(0, 3)
       .map(x => x.v);
-
+*/
     res.json({ matches: lead });
   } catch (err) {
     console.error(err);
