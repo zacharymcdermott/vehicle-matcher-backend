@@ -1,3 +1,5 @@
+# IMPORTANT: This file is not being used for the backend service, remove.
+
 from flask import Flask, request, jsonify
 import json
 
@@ -24,12 +26,12 @@ def match():
     usage = data.get("usage", "")
     exterior_color = data.get("exterior_color", "")
 
-    matches = ["test"]
+    matches = []
 
     # SIMPLE MATCHING LOGIC FOR NOW
-    #for v in INVENTORY:
-        #if vehicle_type in v["body_style"].lower():
-            #matches.append(v)
+    for v in INVENTORY:
+        if vehicle_type in v["body_style"].lower():
+            matches.append(v)
 
     # Return top 3 for now
-    return jsonify({"matches": matches})
+    return jsonify({"matches": matches[:3]})
