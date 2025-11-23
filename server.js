@@ -40,7 +40,7 @@ async function loadInventory() {
   const raw = fs.readFileSync("./inventory.json", "utf-8");
   const json = JSON.parse(raw);
 
-  return json;
+  return json.inventory || [];
 }
 
 // Filter inventory and return top 3 matches
@@ -178,7 +178,7 @@ app.post("/match", async (req, res) => {
       .slice(0, 3)
       .map(x => x.v);
 */
-    res.json({ matches: lead });
+    res.json({ matches: matches });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Match failed" });
