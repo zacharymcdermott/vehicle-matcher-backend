@@ -1,10 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
+import fs from "fs";
 
 const app = express();
 app.use(bodyParser.json());
 
+/* TODO: Possibly update to use Google Sheets instead of inventory.json file
 const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID;
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
@@ -32,9 +34,9 @@ async function loadInventory() {
     return obj;
   });
 }
+*/
 
-import fs from "fs";
-async function testLoadInventory() {
+async function loadInventory() {
   const raw = fs.readFileSync("./inventory.json", "utf-8");
   const json = JSON.parse(raw);
 
@@ -97,17 +99,16 @@ function scoreVehicle(vehicle, lead) {
 app.post("/match", async (req, res) => {
   try {
     const lead = req.body.lead;
-    //const inventory = await loadInventory();
-    const inventory = await testLoadInventory();
+    const inventory = await loadInventory();
 
-    const scored = inventory//inventory
-      //.map(v => ({ v, s: scoreVehicle(v, lead) }))
-      //.filter(x => x.s >= 0)
-      //.sort((a, b) => b.s - a.s)
-      //.slice(0, 3)
-     // .map(x => x.v);
+    const scored = inventory
+      .map(v => ({ v, s: scoreVehicle(v, lead) }))
+      .filter(x => x.s >= 0)
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 3)
+      .map(x => x.v);
 
-    res.json({ matches: scored });
+    res.json({ matches: lead });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Match failed" });
