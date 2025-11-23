@@ -91,12 +91,12 @@ app.post("/match", async (req, res) => {
     const lead = req.body.lead;
     const inventory = await loadInventory();
 
-    const scored = inventory
-      .map(v => ({ v, s: scoreVehicle(v, lead) }))
-      .filter(x => x.s >= 0)
-      .sort((a, b) => b.s - a.s)
-      .slice(0, 3)
-      .map(x => x.v);
+    const scored = ["TEST"]//inventory
+      //.map(v => ({ v, s: scoreVehicle(v, lead) }))
+      //.filter(x => x.s >= 0)
+      //.sort((a, b) => b.s - a.s)
+      //.slice(0, 3)
+     // .map(x => x.v);
 
     res.json({ matches: scored });
   } catch (err) {
@@ -108,4 +108,4 @@ app.post("/match", async (req, res) => {
 app.get("/", (_, res) => res.send("OK"));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Server listening on " + PORT));
+app.listen(PORT, () => console.log("Test -- Server listening on " + PORT));
